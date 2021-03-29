@@ -31,4 +31,5 @@ describe "the coffees get requests" do
       it { expect(response).to have_http_status(404) }
     end
   end
+
 end

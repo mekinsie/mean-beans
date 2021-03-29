@@ -1,5 +1,4 @@
 class CoffeesController < ApplicationController
-  protect_from_forgery with: :null_session
 
   def index
     @coffees = Coffee.all
@@ -12,18 +11,31 @@ class CoffeesController < ApplicationController
   end
 
   def create
-    @coffee = Coffee.create(coffee_params)
-    json_response(@coffee)
+    if @coffee = Coffee.create!(coffee_params)
+      render status: 201, json: {
+        message: "You have successfully created a coffee",
+        coffee: @coffee
+      }
+    end
   end
 
   def update
     @coffee = Coffee.find(params[:id])
-    @coffee.update(coffee_params)
+    if @coffee.update!(coffee_params)
+      render status: 200, json: {
+        message: "This coffee has been successfully updated.",
+        coffee: @coffee
+      }
+    end
   end
 
   def destroy
     @coffee = Coffee.find(params[:id])
-    @coffee.destroy
+    if @coffee.destroy!
+      render status: 200, json: {
+        message: "You have successfully deleted the coffee with id #{@coffee.id}"
+      }
+    end
   end
 
   private
