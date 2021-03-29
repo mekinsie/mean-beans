@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe "the coffees get requests" do
+
   let!(:coffees) { FactoryBot.create_list(:coffee, 20) }
 
   describe 'GET /coffees', :type => :request do
@@ -31,5 +32,4 @@ describe "the coffees get requests" do
       it { expect(response).to have_http_status(404) }
     end
   end
-
 end

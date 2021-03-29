@@ -5,6 +5,19 @@ class CoffeesController < ApplicationController
     json_response(@coffees)
   end
 
+  def search
+
+    @results = Coffee.search(params[:q])
+
+    if @results.any?
+      json_response(@results)
+    else
+      render status: 404, json: {
+        message: "Nope no results lol"
+      }
+    end
+  end
+
   def show
     @coffee = Coffee.find(params[:id])
     json_response(@coffee)
@@ -26,6 +39,8 @@ class CoffeesController < ApplicationController
         message: "This coffee has been successfully updated.",
         coffee: @coffee
       }
+    else
+      render json: { error: @coffee.errors.messages }, status: 422
     end
   end
 
