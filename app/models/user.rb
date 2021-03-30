@@ -1,8 +1,7 @@
 class User < ApplicationRecord
-  def generate_api_key
-    loop do
-      token = SecureRandom.base64.tr('+/=', 'Qrt')
-      break token unless User.exists?(api_key: token).any?
-    end
+  before_save :set_api_key
+
+  def set_api_key
+    self.api_key = SecureRandom.base64.tr('+/=', 'Qrt')
   end
 end

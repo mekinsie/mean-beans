@@ -1,4 +1,4 @@
-class CoffeesController < ApplicationController
+class Api::V1::CoffeesController < Api::ApiController
 
   def index
     @coffees = Coffee.all
@@ -6,9 +6,7 @@ class CoffeesController < ApplicationController
   end
 
   def search
-
     @results = Coffee.search(params[:q])
-
     if @results.any?
       json_response(@results)
     else
@@ -54,7 +52,7 @@ class CoffeesController < ApplicationController
   end
 
   private
-  def coffee_params
-    params.permit(:blend_name, :origin, :notes)
-  end
+    def coffee_params
+      params.permit(:blend_name, :origin, :notes)
+    end
 end
