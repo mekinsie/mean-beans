@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe "patch a coffee route", :type => :request do
   let!(:coffee) {FactoryBot.create(:coffee)}
-  
+  let!(:user) {FactoryBot.create(:user)}
+
   context 'when successful' do
     before do
-      patch "/coffees/#{coffee.id}", params: { blend_name: "Spicy Beans" }
+      patch "/api/v1/coffees/#{coffee.id}", params: { blend_name: "Spicy Beans" }, headers: { "X-Api-Key" => user.api_key }
       @response = JSON.parse(response.body)['coffee']
     end
     it 'returns the updated blend name' do
@@ -13,16 +14,14 @@ describe "patch a coffee route", :type => :request do
     end
   end
 
-  context 'when not successful' do
-    before do
-      patch "/coffees/#{coffee.id}", params: { not_parameter: "Spicy Beans" }
-      @response = JSON.parse(response.body)
-    end
-
-    it {
-      byebug
-      expect(@response).to have_http_status(404)
-    }
-  end
+  # context 'when not successful' do
+  #   before do
+  #     patch "/api/v1/coffees/#{coffee.id + 1}", headers: { "X-Api-Key" => user.api_key }
+  #     @response = JSON.parse(response.body)
+  #   end
+  #   it {
+  #     expect(@response).to have_http_status(404)
+  #   }
+  # end
 
 end

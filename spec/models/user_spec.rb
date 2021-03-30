@@ -1,5 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe User do
+
+  before { @user = User.create }
+
+  it 'creates a user with a random api key' do
+    expect(@user.api_key).not_to eq nil
+  end
+
+  it 'has a length of 24' do
+    expect(@user.api_key.length).to eq 24
+  end
+
 end

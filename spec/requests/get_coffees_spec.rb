@@ -3,10 +3,11 @@ require 'rails_helper'
 describe "the coffees get requests" do
 
   let!(:coffees) { FactoryBot.create_list(:coffee, 20) }
+  let!(:user) {FactoryBot.create(:user)}
 
-  describe 'GET /coffees', :type => :request do
+  describe 'GET /api/v1/coffees', :type => :request do
     context 'when successful' do
-      before { get "/coffees" }
+      before { get "/api/v1/coffees", headers: { "X-Api-Key" => user.api_key } }
 
       it { expect(response).to have_http_status(200) }
 
@@ -16,9 +17,9 @@ describe "the coffees get requests" do
     end
   end
 
-  describe 'GET /coffees/:id', :type => :request do
+  describe 'GET /api/v1/coffees/:id', :type => :request do
     context 'when successful' do
-      before { get "/coffees/#{coffees.first.id}" }
+      before { get "/api/v1/coffees/#{coffees.first.id}", headers: { "X-Api-Key" => user.api_key } }
 
       it { expect(response).to have_http_status(200) }
 
@@ -28,7 +29,7 @@ describe "the coffees get requests" do
     end
 
     context 'when not successful' do
-      before { get "/coffees/#{ coffees.last.id + 1 }" }
+      before { get "/api/v1/coffees/#{ coffees.last.id + 1 }", headers: { "X-Api-Key" => user.api_key } }
       it { expect(response).to have_http_status(404) }
     end
   end
