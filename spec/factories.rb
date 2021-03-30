@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    api_key { "MyString" }
+    # api_key { user.api_key }
   end
 
   factory(:coffee) do
