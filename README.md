@@ -12,6 +12,7 @@ Authored by: Mekinsie Callahan, David Couch, Micah L. Olson
 
 ## Description
 _Building an API: API of Choice_    
+* This API allows users to gather information on different types of coffees. 
 The objective of this lesson is to create a Rails API using RESTful principles, exploring the following topics:
 * Building an API that includes full CRUD functionality and nested routes
 * Successfully returning JSON objects via Postman and cURL
